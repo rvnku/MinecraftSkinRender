@@ -1,0 +1,22 @@
+.controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 8px;
+}
+
+.controls-row__divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border-faint);
+  flex-shrink: 0;
+}
+
+.controls-row__group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}

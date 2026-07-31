@@ -1,0 +1,49 @@
+.toggle-group {
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 1vw, 7px);
+}
+
+.toggle-label {
+  color: var(--text-dim);
+  font-size: var(--font-size-small);
+  letter-spacing: 0.1em;
+}
+
+.toggle-button {
+  width: clamp(24px, 5vw, 28px);
+  height: clamp(14px, 3vw, 16px);
+  border-radius: 8px;
+  border: 1px solid var(--border-active);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+  position: relative;
+}
+
+.toggle-button__knob {
+  width: clamp(8px, 2vw, 10px);
+  height: clamp(8px, 2vw, 10px);
+  border-radius: 50%;
+  background: var(--text-dim);
+  position: absolute;
+  left: 2px;
+  transition:
+    left 0.15s,
+    background 0.15s;
+}
+
+.toggle-button.is-enabled .toggle-button__knob {
+  left: calc(100% - clamp(10px, 2.5vw, 12px));
+}
+
+.toggle-button:active .toggle-button__knob,
+.toggle-button.is-enabled .toggle-button__knob,
+.toggle-button:hover .toggle-button__knob {
+  background: var(--text-active);
+}

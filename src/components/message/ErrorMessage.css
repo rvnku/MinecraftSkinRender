@@ -1,0 +1,28 @@
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 2vw, 10px);
+  user-select: none;
+  margin-top: -12px;
+  padding: 0 8px;
+  flex-wrap: wrap;
+}
+
+.error-message__text {
+  color: var(--error);
+  font-size: var(--font-size-medium);
+  letter-spacing: 0.05em;
+}
+
+.error-message__close {
+  color: var(--error);
+  font-size: var(--font-size-medium);
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.error-message__close:hover {
+  opacity: 1;
+}
