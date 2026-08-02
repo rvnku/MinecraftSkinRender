@@ -19,7 +19,7 @@
   --hover: #666;
   --error: #8a4a4a;
   --panel-max-width: 512px;
-  --panel-min-width: 384px;
+  --panel-min-width: 320px;
   --panel-gap: 24px;
   --panel-padding: 40px 24px;
   --border-radius: 20px;
@@ -39,6 +39,9 @@ body {
   background: var(--bg);
   font-family: 'JetBrains Mono', monospace;
   margin: 0;
+  font-size: var(--font-size-small);
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
 }
 
 ::-webkit-scrollbar {

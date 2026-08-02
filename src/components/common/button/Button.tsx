@@ -1,18 +1,16 @@
+import type { MouseEventHandler } from 'react';
 import './Button.css';
 
-export function IconBtn({
-  label,
-  title,
-  onClick,
-  disabled = false,
-}: {
+interface ButtonProps {
   label: string;
   title?: string;
-  onClick?: () => void;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
-}) {
+}
+
+export function Button({ label, title, onClick, disabled = false }: ButtonProps) {
   return (
-    <button title={title} onClick={onClick} disabled={disabled} className="icon-btn">
+    <button title={title} onClick={onClick} disabled={disabled} className="button">
       {label}
     </button>
   );

@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useTexture } from '@react-three/drei';
 import { Group } from 'three';
-import { generateSkinMaterials } from './materials';
-import type { Animation } from '../../types';
-import { useCharacterAnimation } from './animations/useCharacterAnimations';
+import { generateSkinMaterials } from '../../../utils/materials';
+import type { Animation } from '../../../types';
+import { useCharacterAnimation } from '../../../useful/useCharacterAnimations';
 
 interface CubeProperties {
   skinUrl: string;

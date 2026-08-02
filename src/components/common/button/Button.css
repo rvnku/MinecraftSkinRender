@@ -1,27 +1,16 @@
-.icon-btn {
-  font-family: inherit;
-  font-size: var(--font-size-small);
-  letter-spacing: 0.12em;
-  color: var(--text-dim);
-  background: none;
-  border: none;
+.button {
   cursor: pointer;
-  transition: color 0.15s;
-  user-select: none;
-  padding: 0;
 }
 
-.icon-btn:hover:not(:disabled) {
+.button:hover:not(:disabled) {
   color: var(--text-active);
 }
 
-.icon-btn:disabled {
+.button:disabled {
   color: var(--border-faint);
   cursor: default;
 }
 
-.icon-btn__label--disabled {
+.button__label--disabled {
   color: var(--border-faint);
-  font-size: var(--font-size-small);
-  letter-spacing: 0.12em;
 }

@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Group } from 'three';
-import type { Animation } from '../../../types';
+import type { Animation } from '../types';
 
 export interface AnimationRefs {
   head: React.RefObject<Group>;

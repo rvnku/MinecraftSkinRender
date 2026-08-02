@@ -1,17 +1,13 @@
 import './Segment.css';
 
 type SegmentOption<T> = { label: string; value: T };
-interface SegmentParameters<T> {
+interface SegmentProps<T> {
   options: SegmentOption<T>[];
   value: T;
   onChange: (v: T) => void;
 }
 
-export function Segment<T extends string | boolean>({
-  options,
-  value,
-  onChange,
-}: SegmentParameters<T>) {
+export function Segment<T extends string | boolean>({ options, value, onChange }: SegmentProps<T>) {
   return (
     <div className="segment">
       {options.map((option, index) => {

@@ -1,13 +1,13 @@
 import type { MouseEventHandler } from 'react';
 import './Toggle.css';
 
-interface ToggleParameters {
+interface ToggleProps {
   label: string;
   value: boolean;
   onToggle: MouseEventHandler<HTMLButtonElement>;
 }
 
-export function Toggle({ label, value, onToggle }: ToggleParameters) {
+export function Toggle({ label, value, onToggle }: ToggleProps) {
   return (
     <div className="toggle-group">
       <span className="toggle-label">{label}</span>

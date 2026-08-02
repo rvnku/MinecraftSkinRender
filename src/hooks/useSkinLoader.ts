@@ -24,9 +24,10 @@ export function useSkinLoader() {
       }
 
       setError(null);
-
       setSkinSrc(prev => {
-        if (prev) URL.revokeObjectURL(prev);
+        if (prev && prev.startsWith('blob:')) {
+          URL.revokeObjectURL(prev);
+        }
         return url;
       });
       setReady(false);
@@ -40,21 +41,53 @@ export function useSkinLoader() {
     img.src = url;
   }, []);
 
+  const loadSkinFromUrl = useCallback((url: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const err = validateSkin(img);
+        if (err) {
+          setError(err);
+          reject(err);
+          return;
+        }
+        setError(null);
+        setSkinSrc(prev => {
+          if (prev && prev.startsWith('blob:')) {
+            URL.revokeObjectURL(prev);
+          }
+          return url;
+        });
+        setReady(false);
+        resolve();
+      };
+      img.onerror = () => {
+        setError('failed to load skin from url');
+        reject('failed to load skin from url');
+      };
+      img.src = url;
+    });
+  }, []);
+
   useEffect(() => {
     return () => {
-      if (skinSrc) URL.revokeObjectURL(skinSrc);
+      if (skinSrc && skinSrc.startsWith('blob:')) {
+        URL.revokeObjectURL(skinSrc);
+      }
     };
   }, [skinSrc]);
 
   const clearError = useCallback(() => setError(null), []);
-
   const markReady = useCallback(() => setReady(true), []);
 
   return {
     skinSrc,
     error,
     loadSkin,
+    loadSkinFromUrl,
     clearError,
     markReady,
+    setError,
   };
 }

@@ -1,16 +1,16 @@
 import { useEffect, useMemo } from 'react';
 import { useTexture } from '@react-three/drei';
-import { generateHeadMaterials } from './materials';
+import { generateHeadMaterials } from '../../../utils/materials';
 
 interface CubeProperties {
   skinUrl: string;
-  showHelmet: boolean;
+  showSecondLayer: boolean;
   onReady: (() => void) | undefined;
 }
 
-export function Head({ skinUrl, showHelmet, onReady }: CubeProperties) {
+export function Head({ skinUrl, showSecondLayer, onReady }: CubeProperties) {
   const skin = useTexture(skinUrl);
-  const materials = useMemo(() => generateHeadMaterials(skin, showHelmet), [skin, showHelmet]);
+  const materials = useMemo(() => generateHeadMaterials(skin), [skin]);
 
   useEffect(() => {
     if (materials && onReady) onReady();
@@ -23,7 +23,7 @@ export function Head({ skinUrl, showHelmet, onReady }: CubeProperties) {
       <mesh material={materials.head}>
         <boxGeometry args={[8, 8, 8]} />
       </mesh>
-      {materials.helmet && (
+      {showSecondLayer && (
         <mesh material={materials.helmet} scale={9 / 8}>
           <boxGeometry args={[8, 8, 8]} />
         </mesh>

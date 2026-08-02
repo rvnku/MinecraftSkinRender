@@ -23,34 +23,5 @@
   width: 100%;
   justify-content: center;
   flex-wrap: wrap;
-}
-
-.placeholder-wrap {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-  pointer-events: none;
-}
-
-.placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.placeholder__title {
-  color: var(--text-muted);
-  font-size: var(--font-size-medium);
-  letter-spacing: 0.16em;
-}
-
-.placeholder__title.is-drag-over {
-  color: var(--text-active);
-}
-
-.placeholder__subtitle {
-  color: var(--text-dim);
-  font-size: 10px;
 }

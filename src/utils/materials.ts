@@ -7,7 +7,7 @@ export type SideMaterials = MeshBasicMaterial[];
 
 export interface HeadMaterials {
   head: SideMaterials;
-  helmet: SideMaterials | null;
+  helmet: SideMaterials;
 }
 
 export interface SkinMaterials {
@@ -45,11 +45,11 @@ function createSideMaterials(
   );
 }
 
-export function generateHeadMaterials(skin: Texture, showHelmet: boolean): HeadMaterials {
-  const textures = generateHeadTextures(skin, showHelmet);
+export function generateHeadMaterials(skin: Texture): HeadMaterials {
+  const textures = generateHeadTextures(skin);
   return {
     head: createSideMaterials(textures.head) as SideMaterials,
-    helmet: createSideMaterials(textures.helmet),
+    helmet: createSideMaterials(textures.helmet) as SideMaterials,
   };
 }
 

@@ -1,0 +1,18 @@
+.enter-button {
+  flex-shrink: 0;
+  width: 34px;
+  height: 100%;
+  border-left: 1px solid var(--border);
+  border: none;
+  color: var(--text-dim);
+  font-size: var(--font-size-medium);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enter-button:hover {
+  background: var(--panel-active);
+  color: var(--text-active);
+}

@@ -1,0 +1,31 @@
+.placeholder-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  pointer-events: none;
+  margin: 64px;
+  justify-content: center;
+}
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.placeholder-title {
+  color: var(--text-muted);
+  font-size: var(--font-size-medium);
+  letter-spacing: 0.16em;
+}
+
+.placeholder-title.dragging {
+  color: var(--text-active);
+}
+
+.placeholder-subtitle {
+  color: var(--text-dim);
+  font-size: 10px;
+}

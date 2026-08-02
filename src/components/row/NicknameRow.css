@@ -1,0 +1,8 @@
+.nickname-wrap {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  height: 28px;
+  width: 100%;
+}

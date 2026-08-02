@@ -1,28 +1,8 @@
-.drop-zone {
-  width: min(100%, var(--panel-max-width));
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border);
-  background: var(--panel);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-  padding: 16px;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.drop-zone.is-drag-over,
-.drop-zone:hover {
-  border-color: var(--border-active);
-  background: var(--panel-active);
-}
-
-.drop-zone__input {
+.dropzone-input {
   display: none;
 }
 
-.drop-zone__image {
+.dropzone-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -30,11 +10,14 @@
   image-rendering: pixelated;
 }
 
-.drop-zone__badge {
-  position: absolute;
-  bottom: 13px;
-  left: 15px;
-  color: var(--text-dim);
-  font-size: var(--font-size-small);
-  letter-spacing: 0.12em;
+.panel:has(.droppable:hover):not(:has(.actionbar)),
+.panel:has(.droppable.dragging):not(:has(.actionbar)) {
+  border-color: var(--border-active);
+  background: var(--panel-active);
+}
+
+.panel:has(.droppable:hover):has(.actionbar),
+.panel:has(.droppable.dragging):has(.actionbar) {
+  border-color: var(--border-active);
+  background: var(--panel-active);
 }

@@ -1,7 +1,7 @@
 import { useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import type { Projection } from '../../types';
+import type { Projection } from '../../../types';
 
 export function AutoCamera({
   projection,

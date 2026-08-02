@@ -136,10 +136,10 @@ function getArmTextures(
 
 export const SIDES: Side[] = ['right', 'left', 'top', 'bottom', 'front', 'back'];
 
-export function generateHeadTextures(skin: Texture, helmet: boolean): HeadTextures {
+export function generateHeadTextures(skin: Texture): HeadTextures {
   return {
     head: getHeadTextures(skin, false),
-    helmet: helmet ? getHeadTextures(skin, helmet) : null,
+    helmet: getHeadTextures(skin, true),
   };
 }
 

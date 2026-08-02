@@ -1,28 +1,22 @@
 .segment {
   display: flex;
   border: 1px solid var(--border);
-  border-radius: 6px;
-  overflow: hidden;
+  border-radius: var(--border-radius);
 }
 
 .segment__button {
   padding: 4px 10px;
-  font-family: inherit;
-  font-size: var(--font-size-small);
-  letter-spacing: 0.14em;
-  background: transparent;
-  color: var(--text-dim);
-  border: none;
   border-left: 1px solid var(--border);
   cursor: pointer;
-  transition:
-    color 0.15s,
-    background 0.15s;
-  white-space: nowrap;
 }
 
 .segment__button:first-child {
+  padding-left: 12px;
   border-left: none;
+}
+
+.segment__button:last-child {
+  padding-right: 12px;
 }
 
 .segment__button--active {
