@@ -134,7 +134,7 @@ export function useCharacterAnimation(animation: Animation, refs: AnimationRefs)
         break;
       }
 
-      case 'stand':
+      case 'no anim':
       default:
         reset();
         break;
