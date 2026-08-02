@@ -1,5 +1,6 @@
 .button {
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .button:hover:not(:disabled) {
