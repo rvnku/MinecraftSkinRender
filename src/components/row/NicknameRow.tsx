@@ -25,19 +25,16 @@ export function NicknameRow({
   useEffect(() => {
     setValue(nickname);
   }, [nickname]);
-  useEffect(() => {
-    setNickname(value.trim());
-  }, [skinSystem]);
 
   return (
     <div className="nickname-wrap">
-      <Input value={value} setValue={setValue} onEnter={onEnter} />
-      <EnterButton onClick={onEnter} />
       <Select
         value={skinSystem}
         options={SKIN_SYSTEMS}
         onChange={e => setSkinSystem(e.target.value as SkinSystem)}
       />
+      <Input value={value} setValue={setValue} onEnter={onEnter} />
+      <EnterButton onClick={onEnter} />
     </div>
   );
 }

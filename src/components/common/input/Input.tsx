@@ -17,7 +17,7 @@ export function Input({ value, setValue, onEnter }: InputProps) {
   return (
     <input
       type="text"
-      placeholder="enter nickname to load skin"
+      placeholder="enter nickname"
       onChange={e => setValue(e.target.value)}
       value={value}
       onKeyDown={handleKeyDown}

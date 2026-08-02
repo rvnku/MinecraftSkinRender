@@ -20,7 +20,7 @@ export default function App() {
   const [detectedSlimModel, setDetectedSlimModel] = useState(false);
   const [animation, setAnimation] = useState<Animation>('no anim');
   const [resetKey, setResetKey] = useState(0);
-  const [skinSystem, setSkinSystem] = useState<SkinSystem>('Custom');
+  const [skinSystem, setSkinSystem] = useState<SkinSystem>('Mojang');
   const [nickname, setNickname] = useState('');
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -50,7 +50,7 @@ export default function App() {
   const handleSetNickname = useCallback(
     (newNickname: string) => {
       setNickname(newNickname);
-      if (skinSystem !== 'Custom' && newNickname.trim()) {
+      if (newNickname.trim()) {
         getSkinUrl(skinSystem, newNickname).then(url => {
           if (url) {
             loadSkinFromUrl(url).catch(() => { });
@@ -66,7 +66,6 @@ export default function App() {
   const handleLoadSkin = useCallback(
     (file: File) => {
       setNickname('');
-      setSkinSystem('Custom');
       loadSkin(file);
     },
     [loadSkin]
