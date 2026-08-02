@@ -2,7 +2,8 @@ import { Texture } from 'three';
 import { createPaddedTexture } from './padding';
 
 type Side = 'right' | 'left' | 'top' | 'bottom' | 'front' | 'back';
-type PartTextures = Record<Side, Texture>;
+type SideAlt = 'outside' | 'inside' | 'top' | 'bottom' | 'front' | 'back';
+type PartTextures<T extends Side | SideAlt = Side> = Record<T, Texture>;
 
 interface Region {
   x: number;
@@ -20,15 +21,15 @@ interface SkinTextures {
   head: PartTextures;
   helmet: PartTextures;
   body: PartTextures;
-  rightLeg: PartTextures;
-  leftLeg: PartTextures;
-  rightArm: PartTextures;
-  leftArm: PartTextures;
+  rightLeg: PartTextures<SideAlt>;
+  leftLeg: PartTextures<SideAlt>;
+  rightArm: PartTextures<SideAlt>;
+  leftArm: PartTextures<SideAlt>;
   bodySecond: PartTextures | null;
-  leftLegSecond: PartTextures | null;
-  rightLegSecond: PartTextures | null;
-  leftArmSecond: PartTextures | null;
-  rightArmSecond: PartTextures | null;
+  leftLegSecond: PartTextures<SideAlt> | null;
+  rightLegSecond: PartTextures<SideAlt> | null;
+  leftArmSecond: PartTextures<SideAlt> | null;
+  rightArmSecond: PartTextures<SideAlt> | null;
 }
 
 function getHeadTextures(skin: Texture, helmet: boolean): PartTextures {
@@ -44,8 +45,7 @@ function getHeadTextures(skin: Texture, helmet: boolean): PartTextures {
   for (const [side, { x, y, w, h }] of Object.entries(regions) as [Side, Region][]) {
     const texture = createPaddedTexture(skin, x + (helmet ? 32 : 0), y, w, h);
     if (side === 'bottom') {
-      texture.center.set(0.5, 0.5);
-      texture.rotation = Math.PI;
+      texture.flipY = false;
     }
     textures[side] = texture;
   }
@@ -73,17 +73,21 @@ function getBodyTextures(skin: Texture, second: boolean): PartTextures {
   return textures;
 }
 
-function getLegTextures(skin: Texture, part: 'left' | 'right', second: boolean): PartTextures {
+function getLegTextures(
+  skin: Texture,
+  part: 'left' | 'right',
+  second: boolean
+): PartTextures<SideAlt> {
   const regions = {
     front: { x: 4, y: 20, w: 4, h: 12 },
     back: { x: 12, y: 20, w: 4, h: 12 },
-    left: { x: 8, y: 20, w: 4, h: 12 },
-    right: { x: 0, y: 20, w: 4, h: 12 },
+    inside: { x: 8, y: 20, w: 4, h: 12 },
+    outside: { x: 0, y: 20, w: 4, h: 12 },
     top: { x: 4, y: 16, w: 4, h: 4 },
     bottom: { x: 8, y: 16, w: 4, h: 4 },
   };
-  const textures = {} as PartTextures;
-  for (const [side, region] of Object.entries(regions) as [Side, Region][]) {
+  const textures = {} as PartTextures<SideAlt>;
+  for (const [side, region] of Object.entries(regions) as [SideAlt, Region][]) {
     let { x, y, w, h } = region;
     if (part === 'right' && second) y += 16;
     if (part === 'left') {
@@ -91,9 +95,6 @@ function getLegTextures(skin: Texture, part: 'left' | 'right', second: boolean):
       if (!second) x += 16;
     }
     const texture = createPaddedTexture(skin, x, y, w, h);
-    if (!second && part == 'left') {
-      textures[side == 'left' ? 'right' : side == 'right' ? 'left' : side] = texture;
-    }
     textures[side] = texture;
   }
   return textures;
@@ -104,17 +105,17 @@ function getArmTextures(
   part: 'left' | 'right',
   second: boolean,
   slim: boolean
-): PartTextures {
+): PartTextures<SideAlt> {
   const regions = {
     front: { x: 44, y: 20, w: 4, h: 12 },
     back: { x: 52, y: 20, w: 4, h: 12 },
-    left: { x: 48, y: 20, w: 4, h: 12 },
-    right: { x: 40, y: 20, w: 4, h: 12 },
+    inside: { x: 48, y: 20, w: 4, h: 12 },
+    outside: { x: 40, y: 20, w: 4, h: 12 },
     top: { x: 44, y: 16, w: 4, h: 4 },
     bottom: { x: 48, y: 16, w: 4, h: 4 },
   };
-  const textures = {} as PartTextures;
-  for (const [side, region] of Object.entries(regions) as [Side, Region][]) {
+  const textures = {} as PartTextures<SideAlt>;
+  for (const [side, region] of Object.entries(regions) as [SideAlt, Region][]) {
     let { x, y, w, h } = region;
     if (part === 'right' && second) y += 16;
     if (part === 'left') {
@@ -124,17 +125,16 @@ function getArmTextures(
     if (slim) {
       if (['front', 'back', 'top', 'bottom'].includes(side)) w--;
       if (['bottom', 'back'].includes(side)) x--;
-      if (side == 'left') x -= 2;
+      if (side == 'inside') x -= 2;
     }
     const texture = createPaddedTexture(skin, x, y, w, h);
-    if (!second && part == 'left') {
-      textures[side == 'left' ? 'right' : side == 'right' ? 'left' : side] = texture;
-    } else textures[side] = texture;
+    textures[side] = texture;
   }
   return textures;
 }
 
 export const SIDES: Side[] = ['right', 'left', 'top', 'bottom', 'front', 'back'];
+export const SIDES_ALT: SideAlt[] = ['inside', 'outside', 'top', 'bottom', 'front', 'back'];
 
 export function generateHeadTextures(skin: Texture): HeadTextures {
   return {

@@ -1,8 +1,9 @@
 import { Texture, MeshBasicMaterial, DoubleSide } from 'three';
-import { generateSkinTextures, generateHeadTextures, SIDES } from './textures';
+import { generateSkinTextures, generateHeadTextures, SIDES, SIDES_ALT } from './textures';
 
 type Side = 'right' | 'left' | 'top' | 'bottom' | 'front' | 'back';
-type PartTextures = Record<Side, Texture>;
+type SideAlt = 'outside' | 'inside' | 'top' | 'bottom' | 'front' | 'back';
+type PartTextures<T extends Side | SideAlt = Side> = Record<T, Texture>;
 export type SideMaterials = MeshBasicMaterial[];
 
 export interface HeadMaterials {
@@ -25,31 +26,47 @@ export interface SkinMaterials {
   leftArmSecond: SideMaterials | null;
 }
 
-function createSideMaterials(
-  textures: PartTextures | null,
+function createSideMaterials<T extends Side | SideAlt>(
+  textures: PartTextures<T> | null,
   second: boolean = false
 ): SideMaterials | null {
   if (!textures) return null;
-  return SIDES.map(
-    side =>
-      new MeshBasicMaterial({
-        map: textures[side],
-        transparent: true,
-        ...(second
-          ? {
-            side: DoubleSide,
-            depthWrite: false,
-          }
-          : {}),
-      })
-  );
+  if ('inside' in textures) {
+    return SIDES_ALT.map(
+      side =>
+        new MeshBasicMaterial({
+          map: (textures as PartTextures<SideAlt>)[side],
+          transparent: second,
+          ...(second
+            ? {
+              side: DoubleSide,
+              depthWrite: false,
+            }
+            : {}),
+        })
+    );
+  } else {
+    return SIDES.map(
+      side =>
+        new MeshBasicMaterial({
+          map: (textures as PartTextures<Side>)[side],
+          transparent: second,
+          ...(second
+            ? {
+              side: DoubleSide,
+              depthWrite: false,
+            }
+            : {}),
+        })
+    );
+  }
 }
 
 export function generateHeadMaterials(skin: Texture): HeadMaterials {
   const textures = generateHeadTextures(skin);
   return {
     head: createSideMaterials(textures.head) as SideMaterials,
-    helmet: createSideMaterials(textures.helmet) as SideMaterials,
+    helmet: createSideMaterials(textures.helmet, true) as SideMaterials,
   };
 }
 
