@@ -26,7 +26,6 @@ export function NicknameRow({
     setValue(nickname);
   }, [nickname]);
   useEffect(() => {
-    console.log(value);
     setNickname(value.trim());
   }, [skinSystem]);
 
