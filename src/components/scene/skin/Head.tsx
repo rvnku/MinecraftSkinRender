@@ -20,6 +20,11 @@ export function Head({ skinUrl, showSecondLayer, onReady }: CubeProperties) {
 
   return (
     <group rotation={[0, Math.PI / 2, 0]} scale={1 / 8}>
+      {showSecondLayer && (
+        <mesh material={materials.helmetBack} scale={9 / 8}>
+          <boxGeometry args={[8, 8, 8]} />
+        </mesh>
+      )}
       <mesh material={materials.head}>
         <boxGeometry args={[8, 8, 8]} />
       </mesh>

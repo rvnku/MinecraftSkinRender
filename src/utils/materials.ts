@@ -1,4 +1,4 @@
-import { Texture, MeshBasicMaterial, DoubleSide } from 'three';
+import { Texture, MeshBasicMaterial, FrontSide, BackSide } from 'three';
 import { generateSkinTextures, generateHeadTextures, SIDES, SIDES_ALT } from './textures';
 
 type Side = 'right' | 'left' | 'top' | 'bottom' | 'front' | 'back';
@@ -9,11 +9,13 @@ export type SideMaterials = MeshBasicMaterial[];
 export interface HeadMaterials {
   head: SideMaterials;
   helmet: SideMaterials;
+  helmetBack: SideMaterials;
 }
 
 export interface SkinMaterials {
   head: SideMaterials;
   helmet: SideMaterials;
+  helmetBack: SideMaterials;
   body: SideMaterials;
   rightLeg: SideMaterials;
   leftLeg: SideMaterials;
@@ -24,11 +26,17 @@ export interface SkinMaterials {
   leftLegSecond: SideMaterials | null;
   rightArmSecond: SideMaterials | null;
   leftArmSecond: SideMaterials | null;
+  bodySecondBack: SideMaterials | null;
+  rightLegSecondBack: SideMaterials | null;
+  leftLegSecondBack: SideMaterials | null;
+  rightArmSecondBack: SideMaterials | null;
+  leftArmSecondBack: SideMaterials | null;
 }
 
 function createSideMaterials<T extends Side | SideAlt>(
   textures: PartTextures<T> | null,
-  second: boolean = false
+  second: boolean = false,
+  renderSide: typeof FrontSide | typeof BackSide = FrontSide
 ): SideMaterials | null {
   if (!textures) return null;
   if ('inside' in textures) {
@@ -37,12 +45,7 @@ function createSideMaterials<T extends Side | SideAlt>(
         new MeshBasicMaterial({
           map: (textures as PartTextures<SideAlt>)[side],
           transparent: second,
-          ...(second
-            ? {
-              side: DoubleSide,
-              depthWrite: false,
-            }
-            : {}),
+          side: renderSide,
         })
     );
   } else {
@@ -51,12 +54,7 @@ function createSideMaterials<T extends Side | SideAlt>(
         new MeshBasicMaterial({
           map: (textures as PartTextures<Side>)[side],
           transparent: second,
-          ...(second
-            ? {
-              side: DoubleSide,
-              depthWrite: false,
-            }
-            : {}),
+          side: renderSide,
         })
     );
   }
@@ -67,6 +65,7 @@ export function generateHeadMaterials(skin: Texture): HeadMaterials {
   return {
     head: createSideMaterials(textures.head) as SideMaterials,
     helmet: createSideMaterials(textures.helmet, true) as SideMaterials,
+    helmetBack: createSideMaterials(textures.helmet, true, BackSide) as SideMaterials,
   };
 }
 
@@ -75,6 +74,7 @@ export function generateSkinMaterials(skin: Texture, slim: boolean): SkinMateria
   return {
     head: createSideMaterials(textures.head) as SideMaterials,
     helmet: createSideMaterials(textures.helmet, true) as SideMaterials,
+    helmetBack: createSideMaterials(textures.helmet, true, BackSide) as SideMaterials,
     body: createSideMaterials(textures.body) as SideMaterials,
     rightLeg: createSideMaterials(textures.rightLeg) as SideMaterials,
     leftLeg: createSideMaterials(textures.leftLeg) as SideMaterials,
@@ -85,5 +85,10 @@ export function generateSkinMaterials(skin: Texture, slim: boolean): SkinMateria
     leftLegSecond: createSideMaterials(textures.leftLegSecond, true),
     rightArmSecond: createSideMaterials(textures.rightArmSecond, true),
     leftArmSecond: createSideMaterials(textures.leftArmSecond, true),
+    bodySecondBack: createSideMaterials(textures.bodySecond, true, BackSide),
+    rightLegSecondBack: createSideMaterials(textures.rightLegSecond, true, BackSide),
+    leftLegSecondBack: createSideMaterials(textures.leftLegSecond, true, BackSide),
+    rightArmSecondBack: createSideMaterials(textures.rightArmSecond, true, BackSide),
+    leftArmSecondBack: createSideMaterials(textures.leftArmSecond, true, BackSide),
   };
 }

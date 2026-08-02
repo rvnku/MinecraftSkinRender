@@ -45,86 +45,96 @@ export function Body({ skinUrl, showSecondLayer, slimModel, animation, onReady }
   return (
     <group rotation={[0, Math.PI / 2, 0]} scale={1 / 18}>
       <group ref={headRef} position={[0, 12, 0]}>
-        <mesh material={materials.head} renderOrder={0}>
+        {showSecondLayer && (
+          <mesh material={materials.helmetBack} scale={9 / 8}>
+            <boxGeometry args={[8, 8, 8]} />
+          </mesh>
+        )}
+        <mesh material={materials.head}>
           <boxGeometry args={[8, 8, 8]} />
         </mesh>
         {showSecondLayer && (
-          <mesh material={materials.helmet} scale={9 / 8} renderOrder={1}>
+          <mesh material={materials.helmet} scale={9 / 8}>
             <boxGeometry args={[8, 8, 8]} />
           </mesh>
         )}
       </group>
 
       <group ref={bodyRef} position={[0, 2, 0]}>
-        <mesh material={materials.body} renderOrder={0}>
+        {showSecondLayer && materials.bodySecondBack && (
+          <mesh material={materials.bodySecondBack} scale={9 / 8}>
+            <boxGeometry args={[8, 12, 4]} />
+          </mesh>
+        )}
+        <mesh material={materials.body}>
           <boxGeometry args={[8, 12, 4]} />
         </mesh>
         {showSecondLayer && materials.bodySecond && (
-          <mesh material={materials.bodySecond} scale={9 / 8} renderOrder={1}>
+          <mesh material={materials.bodySecond} scale={9 / 8}>
             <boxGeometry args={[8, 12, 4]} />
           </mesh>
         )}
       </group>
 
       <group ref={rightArmRef} position={[-armX, 8, 0]}>
-        <mesh material={materials.rightArm} position={[0, -6, 0]} renderOrder={0}>
+        {showSecondLayer && materials.rightArmSecondBack && (
+          <mesh material={materials.rightArmSecondBack} position={[0, -6, 0]} scale={9 / 8}>
+            <boxGeometry args={[armWidth, 12, 4]} />
+          </mesh>
+        )}
+        <mesh material={materials.rightArm} position={[0, -6, 0]}>
           <boxGeometry args={[armWidth, 12, 4]} />
         </mesh>
         {showSecondLayer && materials.rightArmSecond && (
-          <mesh
-            material={materials.rightArmSecond}
-            position={[0, -6, 0]}
-            scale={9 / 8}
-            renderOrder={1}
-          >
+          <mesh material={materials.rightArmSecond} position={[0, -6, 0]} scale={9 / 8}>
             <boxGeometry args={[armWidth, 12, 4]} />
           </mesh>
         )}
       </group>
 
       <group ref={leftArmRef} position={[armX, 8, 0]}>
-        <mesh material={materials.leftArm} position={[0, -6, 0]} renderOrder={0}>
+        {showSecondLayer && materials.leftArmSecondBack && (
+          <mesh material={materials.leftArmSecondBack} position={[0, -6, 0]} scale={9 / 8}>
+            <boxGeometry args={[armWidth, 12, 4]} />
+          </mesh>
+        )}
+        <mesh material={materials.leftArm} position={[0, -6, 0]}>
           <boxGeometry args={[armWidth, 12, 4]} />
         </mesh>
         {showSecondLayer && materials.leftArmSecond && (
-          <mesh
-            material={materials.leftArmSecond}
-            position={[0, -6, 0]}
-            scale={9 / 8}
-            renderOrder={1}
-          >
+          <mesh material={materials.leftArmSecond} position={[0, -6, 0]} scale={9 / 8}>
             <boxGeometry args={[armWidth, 12, 4]} />
           </mesh>
         )}
       </group>
 
       <group ref={rightLegRef} position={[-2, -4, 0]}>
-        <mesh material={materials.rightLeg} position={[0, -6, 0]} renderOrder={0}>
+        {showSecondLayer && materials.rightLegSecondBack && (
+          <mesh material={materials.rightLegSecondBack} position={[0, -6, 0]} scale={9 / 8}>
+            <boxGeometry args={[4, 12, 4]} />
+          </mesh>
+        )}
+        <mesh material={materials.rightLeg} position={[0, -6, 0]}>
           <boxGeometry args={[4, 12, 4]} />
         </mesh>
         {showSecondLayer && materials.rightLegSecond && (
-          <mesh
-            material={materials.rightLegSecond}
-            position={[0, -6, 0]}
-            scale={9 / 8}
-            renderOrder={1}
-          >
+          <mesh material={materials.rightLegSecond} position={[0, -6, 0]} scale={9 / 8}>
             <boxGeometry args={[4, 12, 4]} />
           </mesh>
         )}
       </group>
 
       <group ref={leftLegRef} position={[2, -4, 0]}>
-        <mesh material={materials.leftLeg} position={[0, -6, 0]} renderOrder={0}>
+        {showSecondLayer && materials.leftLegSecondBack && (
+          <mesh material={materials.leftLegSecondBack} position={[0, -6, 0]} scale={9 / 8}>
+            <boxGeometry args={[4, 12, 4]} />
+          </mesh>
+        )}
+        <mesh material={materials.leftLeg} position={[0, -6, 0]}>
           <boxGeometry args={[4, 12, 4]} />
         </mesh>
         {showSecondLayer && materials.leftLegSecond && (
-          <mesh
-            material={materials.leftLegSecond}
-            position={[0, -6, 0]}
-            scale={9 / 8}
-            renderOrder={1}
-          >
+          <mesh material={materials.leftLegSecond} position={[0, -6, 0]} scale={9 / 8}>
             <boxGeometry args={[4, 12, 4]} />
           </mesh>
         )}
