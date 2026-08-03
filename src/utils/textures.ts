@@ -124,8 +124,7 @@ function getArmTextures(
     }
     if (slim) {
       if (['front', 'back', 'top', 'bottom'].includes(side)) w--;
-      if (['bottom', 'back'].includes(side)) x--;
-      if (side == 'inside') x -= 2;
+      if (['bottom', 'inside', 'back'].includes(side)) x--;
     }
     const texture = createPaddedTexture(skin, x, y, w, h);
     textures[side] = texture;
